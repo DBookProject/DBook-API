@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="https://code.jquery.com/jquery-3.4.1.js"
+        integrity="sha256-WpOohJOqMqqyKL9FccASB9O0KwACQJpFTUBLTYOVvVU=" crossorigin="anonymous"></script>
+    <title>UserAction</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        padding: 0;
+        background-color: #2B3137;
+    }
+
+    .user_action_box_wrap {
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
+
+    .user_action_box {
+        width: 40vw;
+        height: 70vh;
+        background-color: #fafbfc;
+        border-radius: 3px;
+        box-sizing: border-box;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-direction: column;
+    }
+
+    .user_action_title_wrap {
+        height: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user_action_title {
+        margin: 0;
+        padding: 0;
+    }
+
+    .user_action_input_wrap {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 70%;
+        width: 100%;
+    }
+
+    .user_action_input_wrap>input {
+        width: 50%;
+        background-color: #fff;
+        border: 1px solid #d1d5da;
+        border-radius: 3px;
+        box-shadow: inset 0 1px 2px rgba(27, 31, 35, .075);
+        color: #24292e;
+        font-size: 16px;
+        line-height: 20px;
+        min-height: 34px;
+        padding: 6px 8px;
+    }
+
+    .user_action_button_wrap {
+        width: 50%;
+        height: 20%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .user_action_button {
+        border: none;
+        font-size: 16px;
+        color: #fff;
+        width: 80%;
+        height: 50%;
+        background-color: #23A6D577;
+        border-radius: 3px;
+        transition: 0.5s all;
+    }
+
+    .user_action_button:hover {
+        cursor: pointer;
+        transition: 0.5s all;
+        background-color: #23A6D5;
+    }
+</style>
+
+<body>
+
+    <div class="user_action_box_wrap">
+        <!--로그인 box-->
+        <div class="user_action_box">
+
+            <div class="user_action_title_wrap">
+                <h2 class="user_action_title">로그인</h2>
+            </div>
+
+            <form action="/" name="login" class="user_action_input_wrap" method="POST" onsubmit="return login_btn()">
+
+                <input id="lg_userid" name="userid" placeholder="아이디" />
+                <input id="lg_password" placeholder="비밀번호" />
+
+                <div class="user_action_button_wrap">
+                    <input type="submit" class="user_action_button" value="로그인">
+                </div>
+
+            </form>
+        </div>
+
+        <!--회원가입 box-->
+        <div class="user_action_box">
+
+            <div class="user_action_title_wrap">
+                <h2 class="user_action_title">회원가입</h2>
+            </div>
+
+            <div class="user_action_input_wrap">
+
+                <input id="sg_userid" placeholder="아이디" />
+                <input id="sg_password" placeholder="비밀번호" />
+                <input id="sg_name" placeholder="이름" />
+                <input id="sg_email" placeholder="이메일" />
+
+                <div class="user_action_button_wrap">
+                    <button class="user_action_button" onclick="Signup_btn()">회원가입</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    async function Signup_btn() {
+        let data = {
+            userId: $('#sg_userid').val(),
+            password: $('#sg_password').val(),
+            name: $('#sg_name').val(),
+            email: $('#sg_email').val()
+        };
+        if ($('#sg_userid').val() === "") {
+            alert("아이디 값을 입력해 주세요.");
+            return false;
+        }
+        else if ($('#sg_password').val() === "") {
+            alert("패스워드 값을 입력해 주세요.");
+            return false;
+        }
+        else if ($('#sg_name').val() === "") {
+            alert("이름을 입력해 주세요.");
+            return false;
+        }
+        else if ($('#sg_email').val() === "") {
+            alert("이메일을 입력해 주세요.");
+            return false;
+        }
+        else if ($('#sg_email').val().substring($('#sg_email').val().length - 10, $('#sg_email').val().length) !== '@gmail.com') {
+            alert("Gmail을 올바르게 입력해주세요.\nEx) test@gmail.com");
+            return false;
+        }
+        else {
+            try {
+                if (!sendEmail())
+                    return false;
+
+                let response = await $.ajax({
+                    type: "post",
+                    url: 'http://localhost:8080/user/signup',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data)
+                });
+                alert("회원가입에 성공하였습니다.");
+            }
+            catch (e) {
+                alert("회원가입에 실패하였습니다.");
+            }
+        }
+    }
+    function login_btn() {
+        let data = {
+            userId: $('#lg_userid').val(),
+            password: $('#lg_password').val()
+        };
+        if ($('#lg_userid').val() === "") {
+            alert("아이디 값을 입력해 주세요.");
+            return false;
+        }
+        else if ($('#lg_password').val() === "") {
+            alert("패스워드 값을 입력해 주세요.");
+            return false;
+        }
+        else {
+            try {
+                let response = $.ajax({
+                    type: "post",
+                    url: 'http://localhost:8080/user/login',
+                    contentType: 'application/json',
+                    async: false,
+                    data: JSON.stringify(data),
+                });
+                if (response.status === 200) {
+                    return true;
+                }
+                else {
+                    alert("로그인에 실패하였습니다.");
+                    return false;
+                }
+            }
+            catch (e) {
+                alert("로그인에 실패하였습니다.");
+                return false;
+            }
+        }
+    }
+    function sendEmail() {
+        let data = {
+            receiveEmail: $('#sg_email').val(),
+            title: "title",
+            content: "content",
+            sendEmail: "namsic6460@gmail.com",
+            sendEmailPassword: "Qlalfqjsgh6460"
+        };
+
+        console.log(JSON.stringify(data));
+        $.post('http://localhost:8080/user/emails', {
+             contentType: 'application/json',
+             async: false,
+             data: JSON.stringify(data)
+        }).then(response => {
+            alert("메일을 발송하였습니다.");
+            return true;
+        }).catch(response => {
+            alert("메일 발송에 실패하였습니다.");
+            return false;
+        });
+    }
+</script>
+
+</html>
