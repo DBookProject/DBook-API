@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="9ff1620e-b9f8-44a2-bc1e-ef1e8827ac33" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../dbook/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/build.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/gradlew" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/gradlew.bat" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/settings.gradle" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/CORS.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Controller/UserController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/DBookApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/EBook.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/EmailClass.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/KeyTable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/Library.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/LibraryPK.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Domain/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Repository/UserRepository.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Service/UserService.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/Service/UserServiceImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/dbook/DBookApplication.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/java/kr/hs/dgsw/dbook/json/ResponseLogin.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/resources/application.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/main/resources/static/front.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../dbook/src/test/java/kr/hs/dgsw/dbook/DbookApplicationTests.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1fLvKnAAc6jFJFzWdrqHqP4DqZE" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/api" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9ff1620e-b9f8-44a2-bc1e-ef1e8827ac33" name="Default Changelist" comment="" />
+      <created>1596010125874</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1596010125874</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="260" y="283" key="FileChooserDialogImpl" timestamp="1596010174529">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="260" y="283" key="FileChooserDialogImpl/1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1596010174529" />
+  </component>
+</project>
