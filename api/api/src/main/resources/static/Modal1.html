@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D-Book | 업로드</title>
+    <link rel="stylesheet" href="css/Modal1.css">
+</head>
+<body>
+    <div class="dbook-detail">
+        <header>
+            <h1>D-Book</h1>
+        </header>
+    
+        <form action="" method="post" enctype="multipart/form-data">
+            <div id="modal_left">
+                <p>업로드 파일</p>
+                <p><input type="file" name="file"></p>
+                <p><input id="modal_btn" type="submit"></p>
+                <br>
+                <p>프로필 이미지</p>
+                <p><input type="file" name="file"></p>
+            </div>
+
+            <div id="modal_right">
+                <p class="upload-item-text">제목</p> <input type="text" name="title">
+                <p class="upload-item-text">글쓴이</p> <input type="text" name="writer">
+                <p class="upload-item-text">장르</p> <input type="text" name="genre">
+                <p class="upload-item-text">내용</p>
+                <textarea name="content" rows="5" cols="30"></textarea>
+                <p><input id="modal_btn" type="submit"></p>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
