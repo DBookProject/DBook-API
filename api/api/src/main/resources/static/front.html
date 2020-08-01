@@ -107,7 +107,7 @@
 
             <form action="/" name="login" class="user_action_input_wrap" method="POST" onsubmit="return login_btn()">
 
-                <input id="lg_userid" name="userid" placeholder="아이디" />
+                <input id="lg_email" placeholder="이메일" />
                 <input id="lg_password" placeholder="비밀번호" />
 
                 <div class="user_action_button_wrap">
@@ -141,8 +141,8 @@
 <script>
     async function Signup_btn() {
         let data = {
-            auth: $('sg_auth').val(),
-            password: $('#sg_password').val()
+            "auth": $('sg_auth').val(),
+            "password": $('#sg_password').val()
         };
         if ($('#sg_password').val() === "") {
             alert("패스워드 값을 입력해 주세요.");
@@ -157,10 +157,16 @@
             return false;
         }
         else {
+<<<<<<< Updated upstream
             await $.ajax({
                 type: "post",
                 url: 'http://localhost:8080/user/signup',
                 contentType: 'application/json',
+=======
+            await $.post({
+                url: 'http://10.80.162.210:8080/users/signup',
+                contentType: "application/json",
+>>>>>>> Stashed changes
                 data: JSON.stringify(data)
             }).then(response => {
                 alert("회원가입에 성공하였습니다.");
@@ -173,8 +179,8 @@
     }
     function login_btn() {
         let data = {
-            email: $('#sg_email').val(),
-            password: $('#sg_password').val()
+            "email": $('#lg_email').val(),
+            "password": $('#lg_password').val()
         };
 
         if ($('#lg_userid').val() === "") {
@@ -187,30 +193,47 @@
         }
         else {
             $.post({
+<<<<<<< Updated upstream
                 url: 'http://localhost:8080/user/logins',
                 contentType: 'application/json',
                 async: false,
                 data: JSON.stringify(data),
+=======
+                url: 'http://10.80.162.210:8080/users/logins',
+                contentType: "application/json",
+                data: JSON.stringify(data)
+>>>>>>> Stashed changes
             }).then(response => {
-                alert("로그인에 성공하였습니다");
-                location.href='signup.html'
-                return true;
-            }).catch(response => {
-                alert("로그인에 실패하였습니다.");
-                return false;
-            })
+                if(response.token !== null) {
+                    alert("로그인에 성공하였습니다");
+                    location.href='signup.html'
+                }
+
+                else {
+                    alert("로그인에 실패하였습니다");
+                    location.href='front.html'
+                }
+            });
         }
     }
     function sendEmail() {
         let data = {
-            email: $('#sg_email').val()
+            "email": $('#sg_email').val()
         };
 
+<<<<<<< Updated upstream
         console.log(JSON.stringify(data));
         $.get('http://localhost:8080/user/sendEmail', {
              contentType: 'application/json',
              async: false,
              data: JSON.stringify(data)
+=======
+        console.log(data);
+        $.post({
+            url: 'http://10.80.162.210:8080/users/sendEmail',
+            contentType: "application/json",
+            data: JSON.stringify(data)
+>>>>>>> Stashed changes
         }).then(response => {
             alert("메일을 발송하였습니다.");
         }).catch(response => {
