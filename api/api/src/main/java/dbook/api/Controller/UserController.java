@@ -17,7 +17,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/sendEmail")
+    @PostMapping("/users/sendEmail")
     public ResponseEntity<Response> SendEmail(@RequestBody User user) {
         return new ResponseEntity<>(userService.sendEmail(user), HttpStatus.OK);
     }

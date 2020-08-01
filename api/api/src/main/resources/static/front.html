@@ -159,7 +159,7 @@
         else {
             await $.ajax({
                 type: "post",
-                url: 'http://localhost:8080/user/signup',
+                url: 'http://localhost:8080/users/signup',
                 contentType: 'application/json',
                 data: JSON.stringify(data)
             }).then(response => {
@@ -187,7 +187,7 @@
         }
         else {
             $.post({
-                url: 'http://localhost:8080/user/logins',
+                url: 'http://localhost:8080/users/logins',
                 contentType: 'application/json',
                 async: false,
                 data: JSON.stringify(data),
@@ -207,13 +207,16 @@
         };
 
         console.log(JSON.stringify(data));
-        $.get('http://localhost:8080/user/sendEmail', {
-             contentType: 'application/json',
-             async: false,
-             data: JSON.stringify(data)
+        $.post('http://localhost:8080/users/sendEmail', {
+            contentType: 'application/json',
+            async: false,
+            data: JSON.stringify(data),
+            accept : application/json
+            content-type : application/json;charset=UTF-8
         }).then(response => {
             alert("메일을 발송하였습니다.");
         }).catch(response => {
+            console.log(response);
             alert("메일 발송에 실패하였습니다.");
         });
     }
