@@ -1,10 +1,11 @@
 package dbook.api.Controller;
 
+import dbook.api.Domain.Auth;
 import dbook.api.Domain.User;
 import dbook.api.Service.UserService;
 import dbook.api.json.LoginResponse;
 import dbook.api.json.Response;
-import dbook.api.json.SignUpResponse;
+import dbook.api.json.SignupResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,16 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/users/{userid}")
-    public ResponseEntity<User> GetUser(@PathVariable String userid) {
-        User user = userService.findUser(userid);
+    @GetMapping("/users/sendEmail")
+    public ResponseEntity<Response> SendEmail(@RequestBody User user) {
+        return new ResponseEntity<>(userService.sendEmail(user), HttpStatus.OK);
+    }
 
-        if(user.getUserId().equals("ok"))
+    @GetMapping("/users/{email}")
+    public ResponseEntity<User> GetUser(@PathVariable String email) {
+        User user = userService.findUser(email);
+
+        if(user.getEmail().equals("ok"))
             return new ResponseEntity<>(user, HttpStatus.OK);
         return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
     }
@@ -32,9 +38,8 @@ public class UserController {
     }
 
     @PostMapping("/users/signup")
-    public ResponseEntity<SignUpResponse> SignUp(@RequestBody User user) {
-        SignUpResponse signUpResponse = userService.signup(user);
-        return new ResponseEntity<>(signUpResponse, HttpStatus.OK);
+    public ResponseEntity<SignupResponse> SignUp(@RequestBody Auth auth) {
+        return new ResponseEntity<>(userService.signup(auth), HttpStatus.OK);
     }
 
     @PostMapping("/users/shared")

@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 public class LoginResponse {
 
     String message;
-    String userid;
+    String email;
     String token;
 
     //로그인 실패
@@ -17,8 +17,8 @@ public class LoginResponse {
     }
 
     //로그인 성공
-    public LoginResponse(String userid, String token) {
-        this.userid = userid;
+    public LoginResponse(String email, String token) {
+        this.email = email;
         this.token = token;
     }
 

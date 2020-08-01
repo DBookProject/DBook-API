@@ -14,25 +14,25 @@ public class EBook {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    Integer e_no;
+    Integer eNo;
 
-    Integer e_uploader;
+    Integer eUploader;
 
-    String e_name;
+    String eName;
 
-    String e_genre;
+    String eGenre;
 
-    String e_author;
+    String eAuthor;
 
     @CreationTimestamp
-    LocalDateTime e_uploadDate;
+    LocalDateTime eUploadDate;
 
-    String e_image;
+    String eImage;
 
-    String e_preview;
+    String ePreview;
 
-    Boolean e_isSharable;
+    Boolean eIsSharable;
 
-    String e_path;
+    String ePath;
 
 }
