@@ -208,11 +208,9 @@
 
         console.log(JSON.stringify(data));
         $.post('http://localhost:8080/users/sendEmail', {
-            contentType: 'application/json',
+            contentType: 'application/json; charset=UTF-8',
             async: false,
-            data: JSON.stringify(data),
-            accept : application/json
-            content-type : application/json;charset=UTF-8
+            data: JSON.stringify(data)
         }).then(response => {
             alert("메일을 발송하였습니다.");
         }).catch(response => {
