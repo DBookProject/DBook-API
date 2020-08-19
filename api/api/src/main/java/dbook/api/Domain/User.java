@@ -24,7 +24,7 @@ public class User {
     String uName;
 
     public User(String email) {
-        this.uEmail = email;
+        this.setEmail(email);
     }
 
     public Long getId() {

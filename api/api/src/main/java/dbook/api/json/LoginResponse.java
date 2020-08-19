@@ -3,23 +3,28 @@ package dbook.api.json;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
 @NoArgsConstructor
-public class LoginResponse {
+public class LoginResponse extends Response {
 
-    String message;
-    String email;
     String token;
+    String email;
 
-    //로그인 실패
-    public LoginResponse(String message) {
-        this.message = message;
+    public LoginResponse(int status, String message) {
+        super(status, message);
     }
 
-    //로그인 성공
-    public LoginResponse(String email, String token) {
-        this.email = email;
+    public LoginResponse(int status, String message, String token, String email) {
+        super(status, message);
         this.token = token;
+        this.email = email;
+    }
+
+    public String getToken() {
+        return this.token;
+    }
+
+    public String getEmail() {
+        return this.email;
     }
 
 }

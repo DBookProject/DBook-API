@@ -7,15 +7,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Response {
 
+    int status;
     String message;
-    Object object;
 
-    public Response(String message) {
+    public Response(int status, String message) {
+        this.status = status;
         this.message = message;
-    }
-
-    public Response(Object object) {
-        this.object = object;
     }
 
 }

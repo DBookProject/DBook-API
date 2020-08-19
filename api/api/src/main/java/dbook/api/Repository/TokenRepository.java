@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface TokenRepository extends JpaRepository<Token, Integer> {
 
-    Optional<Token> findBytOwnerid(String tOwnerid);
+    Optional<Token> findBytOwnerid(String ownerId);
 
 }

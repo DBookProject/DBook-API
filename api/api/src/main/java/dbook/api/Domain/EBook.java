@@ -35,4 +35,88 @@ public class EBook {
 
     String ePath;
 
+    public EBook(String name) {
+        this.setName(name);
+    }
+
+    public Integer getNo() {
+        return eNo;
+    }
+
+    public void setMo(Integer no) {
+        this.eNo = no;
+    }
+
+    public Integer getUploader() {
+        return eUploader;
+    }
+
+    public void setUploader(Integer uploader) {
+        this.eUploader = uploader;
+    }
+
+    public String getName() {
+        return eName;
+    }
+
+    public void setName(String name) {
+        this.eName = name;
+    }
+
+    public String getGenre() {
+        return eGenre;
+    }
+
+    public void setGenre(String genre) {
+        this.eGenre = genre;
+    }
+
+    public String getAuthor() {
+        return eAuthor;
+    }
+
+    public void setAuthor(String author) {
+        this.eAuthor = author;
+    }
+
+    public LocalDateTime getUploadDate() {
+        return eUploadDate;
+    }
+
+    public void setUploadDate(LocalDateTime uploadDate) {
+        this.eUploadDate = uploadDate;
+    }
+
+    public String getImage() {
+        return eImage;
+    }
+
+    public void setImage(String image) {
+        this.eImage = image;
+    }
+
+    public String getPreview() {
+        return ePreview;
+    }
+
+    public void setPreview(String preview) {
+        this.ePreview = preview;
+    }
+
+    public Boolean getIsSharable() {
+        return eIsSharable;
+    }
+
+    public void setIsSharable(Boolean isSharable) {
+        this.eIsSharable = isSharable;
+    }
+
+    public String getPath() {
+        return ePath;
+    }
+
+    public void setPath(String path) {
+        this.ePath = path;
+    }
+
 }

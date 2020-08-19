@@ -9,11 +9,11 @@ import dbook.api.Repository.TokenRepository;
 import dbook.api.Repository.UserRepository;
 import dbook.api.json.LoginResponse;
 import dbook.api.json.Response;
-import dbook.api.json.SignupResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.mail.*;
+import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import java.net.Inet4Address;
@@ -37,8 +37,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Response sendEmail(User user) {
-        String email = user.getEmail();
-
         String sendEmail = "dgswbook@gmail.com"; // 보내는 email 주소
         String password = "12dgswbook34"; // 보내는 email password
         String serverSMTP = "smtp.gmail.com";
@@ -47,24 +45,28 @@ public class UserServiceImpl implements UserService {
 
         //SMTP 정보
         Properties prop = new Properties();
-        prop.put("mail.smtp.host",serverSMTP);
-        prop.put("mail.smtp.port",serverPORT);
-        prop.put("mail.smtp.auth","true");
-        prop.put("mail.smtp.ssl.enable","true");
-        prop.put("mail.smtp.ssl.trust",serverSMTP);
+        prop.put("mail.smtp.host", serverSMTP);
+        prop.put("mail.smtp.port", serverPORT);
+        prop.put("mail.smtp.auth", "true");
+        prop.put("mail.smtp.ssl.enable", "true");
+        prop.put("mail.smtp.ssl.trust", serverSMTP);
 
-        Session session = Session.getDefaultInstance(prop, new Authenticator(){
+        Session session = Session.getDefaultInstance(prop, new Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
                 return new PasswordAuthentication(sendEmail, password);
             }
         });
 
-        try{
+        try {
+            String email = user.getEmail();
+            if (email == null)
+                return new Response(400, "Require Email");
+
             Auth check = findAuth(email);
-            if(!check.getAuth().equals("ok"))
+            if (!check.getAuth().equals("ok"))
                 authRepository.delete(check);
 
-            if(!findUser(email).getEmail().equals("ok"))
+            if (!findUser(email).getEmail().equals("ok"))
                 throw new UserException("User Already Exists");
 
             MimeMessage message = new MimeMessage(session);
@@ -79,13 +81,13 @@ public class UserServiceImpl implements UserService {
                     code.append((int) ((Math.random() * 10000) % 10));
 
                 check = authRepository.findByaAuth(code.toString()).orElseGet(() -> new Auth("-1"));
-            } while(!check.getAuth().equals("-1"));
+            } while (!check.getAuth().equals("-1"));
 
             // Subject
             message.setSubject("[DBOOK] 인증번호"); //메일 제목을 입력
 
             // Text
-            message.setText("인증번호 ["+ code +"] 를 입력해주세요.");    //메일 내용을 입력
+            message.setText("인증번호 [" + code + "] 를 입력해주세요.");    //메일 내용을 입력
 
             // send the message
             Transport.send(message); ////전송
@@ -94,31 +96,34 @@ public class UserServiceImpl implements UserService {
             check.setAuth(code.toString());
             authRepository.save(check);
 
-            return new Response("Complete Sending Email");
+            return new Response(200, "Success sendEmail");
         } catch (MessagingException e) {
             e.printStackTrace();
-            return new Response(e.getMessage());
+            return new Response(400, e.getMessage());
         }
     }
 
     @Override
-    public SignupResponse signup(Auth auth) {
+    public Response signup(Auth auth) {
         try {
             String authCode = auth.getAuth();
+            String password = auth.getPassword();
+
+
             Auth data = Optional.ofNullable(authRepository.findByaAuth(authCode).orElseThrow(
                     () -> new UserException("Undefined Auth Code")
             )).get();
 
             User user = new User(data.getEmail());
-            user.setPassword(convertSHA256(auth.getPassword()));
+            user.setPassword(convertSHA256(password));
 
             userRepository.save(user);
             authRepository.delete(data);
 
-            return new SignupResponse("Complete Signup");
+            return new Response(200, "Success signup");
         } catch (UserException e) {
             e.printStackTrace();
-            return new SignupResponse(e.getMessage());
+            return new Response(401, e.getMessage());
         }
     }
 
@@ -150,16 +155,11 @@ public class UserServiceImpl implements UserService {
                 });
             }
 
-            return new LoginResponse(email, token);
+            return new LoginResponse(200, "Success logins", token, email);
         } catch (UserException e) {
             e.printStackTrace();
-            return new LoginResponse(e.getMessage());
+            return new LoginResponse(401, e.getMessage());
         }
-    }
-
-    @Override
-    public Response shared(User user) {
-        return null;
     }
 
     @Override
@@ -168,7 +168,9 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Auth findAuth(String email) { return authRepository.findByuEmail(email).orElseGet(() -> new Auth("ok")); }
+    public Auth findAuth(String email) {
+        return authRepository.findByuEmail(email).orElseGet(() -> new Auth("ok"));
+    }
 
     public String makeToken(){
         StringBuilder token = new StringBuilder();
