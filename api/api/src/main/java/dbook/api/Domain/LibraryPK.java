@@ -26,4 +26,20 @@ public class LibraryPK implements Serializable {
         this.eNo = eNo;
     }
 
+    public Integer getuNo() {
+        return uNo;
+    }
+
+    public void setuNo(Integer no) {
+        this.uNo = no;
+    }
+
+    public Integer geteNo() {
+        return eNo;
+    }
+
+    public void seteNo(Integer no) {
+        this.eNo = no;
+    }
+
 }
