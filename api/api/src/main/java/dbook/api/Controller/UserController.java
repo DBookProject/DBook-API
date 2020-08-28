@@ -2,6 +2,7 @@ package dbook.api.Controller;
 
 import dbook.api.Domain.Auth;
 import dbook.api.Domain.User;
+import dbook.api.json.UserResponse;
 import dbook.api.Service.UserService;
 import dbook.api.json.LoginResponse;
 import dbook.api.json.Response;
@@ -23,18 +24,18 @@ public class UserController {
     }
 
     @GetMapping("/users/{email}")
-    public ResponseEntity<User> GetUser(@PathVariable String email) {
+    public ResponseEntity<UserResponse> GetUser(@PathVariable String email) {
         User user = userService.findUser(email);
 
-        if(user.getEmail().equals("ok"))
-            return new ResponseEntity<>(user, HttpStatus.OK);
-        return new ResponseEntity<>(user, HttpStatus.ACCEPTED);
+        if(user.getEmail().equals("Undefined"))
+            return new ResponseEntity<>(new UserResponse(400, "Undefined user email", user), HttpStatus.OK);
+        return new ResponseEntity<>(new UserResponse(200, "Success getUser", user), HttpStatus.ACCEPTED);
     }
 
     @PostMapping("/users/logins")
     public ResponseEntity<LoginResponse> Login(@RequestBody User user) {
         LoginResponse loginResponse = userService.login(user);
-        System.out.println("user login - " + loginResponse.getEmail() + ", " + loginResponse.getToken());
+        System.out.println("user login - " + loginResponse.getToken() + ", " + loginResponse.getToken());
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 

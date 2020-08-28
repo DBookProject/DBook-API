@@ -59,13 +59,13 @@ public class UserServiceImpl implements UserService {
         try {
             String email = user.getEmail();
             if (email == null)
-                return new Response(400, "Require Email");
+                return new Response(400, "Requires Email");
 
             Auth check = findAuth(email);
-            if (!check.getAuth().equals("ok"))
+            if (!check.getAuth().equals("Undefined"))
                 authRepository.delete(check);
 
-            if (!findUser(email).getEmail().equals("ok"))
+            if (!findUser(email).getEmail().equals("Undefined"))
                 throw new UserException("User Already Exists");
 
             MimeMessage message = new MimeMessage(session);
@@ -108,6 +108,10 @@ public class UserServiceImpl implements UserService {
             String authCode = auth.getAuth();
             String password = auth.getPassword();
 
+            if(authCode == null)
+                return new Response(400, "Requires Auth");
+            if(password == null)
+                return new Response(400, "Requires Password");
 
             Auth data = Optional.ofNullable(authRepository.findByaAuth(authCode).orElseThrow(
                     () -> new UserException("Undefined Auth Code")
@@ -130,13 +134,21 @@ public class UserServiceImpl implements UserService {
     public LoginResponse login(User user) {
         try {
             String email = user.getEmail();
-            Optional<User> objUser = Optional.ofNullable(userRepository.findByuEmail(email).orElseThrow(
-                    () -> new UserException("Undefined User")
-            ));
+            if(email == null)
+                return new LoginResponse(400, "Requires Email");
 
-            String password = convertSHA256(user.getPassword());
-            if(!objUser.get().getPassword().equals(password))
-                throw new UserException("Password Different");
+            User objUser = userRepository.findByuEmail(email).orElse(null);
+
+            if(objUser == null)
+                return new LoginResponse(400, "Undefined User");
+
+            String password = user.getPassword();
+            if(password == null)
+                return new LoginResponse(400, "Requires Password");
+
+            password = convertSHA256(user.getPassword());
+            if(!user.getPassword().equals(password))
+                throw new UserException("Different Password");
 
             String token = makeToken();
             String ip = findIpAddress();
@@ -154,7 +166,7 @@ public class UserServiceImpl implements UserService {
                 });
             }
 
-            return new LoginResponse(200, "Success logins", token, email);
+            return new LoginResponse(200, "Success logins", token);
         } catch (UserException e) {
             e.printStackTrace();
             return new LoginResponse(401, e.getMessage());
@@ -163,12 +175,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findUser(String email) {
-        return userRepository.findByuEmail(email).orElseGet(() -> new User("ok"));
+        return userRepository.findByuEmail(email).orElseGet(() -> new User("Undefined"));
     }
 
     @Override
     public Auth findAuth(String email) {
-        return authRepository.findByuEmail(email).orElseGet(() -> new Auth("ok"));
+        return authRepository.findByuEmail(email).orElseGet(() -> new Auth("Undefined"));
     }
 
     public String makeToken(){

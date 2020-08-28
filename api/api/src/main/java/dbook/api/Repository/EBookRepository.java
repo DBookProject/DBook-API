@@ -10,6 +10,6 @@ public interface EBookRepository extends JpaRepository<EBook, Integer> {
 
     Optional<EBook> findByeNo(Integer no);
 
-    List<EBook> findByeUploader(Integer no);
+    List<EBook> findByeUploader(Long no);
 
 }

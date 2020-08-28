@@ -16,7 +16,7 @@ public class EBook {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Integer eNo;
 
-    Integer eUploader;
+    Long eUploader;
 
     String eName;
 
@@ -47,11 +47,11 @@ public class EBook {
         this.eNo = no;
     }
 
-    public Integer getUploader() {
+    public Long getUploader() {
         return eUploader;
     }
 
-    public void setUploader(Integer uploader) {
+    public void setUploader(Long uploader) {
         this.eUploader = uploader;
     }
 

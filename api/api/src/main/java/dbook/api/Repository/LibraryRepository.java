@@ -7,6 +7,6 @@ import java.util.List;
 
 public interface LibraryRepository extends JpaRepository<Library, Integer> {
 
-    List<Library> findByPk_uNo(Integer no);
+    List<Library> findByPk_uNo(Long no);
 
 }

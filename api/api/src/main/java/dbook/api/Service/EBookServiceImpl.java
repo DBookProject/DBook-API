@@ -13,7 +13,7 @@ public class EBookServiceImpl implements EBookService {
 
     @Override
     public EBook findEBook(Integer eNo) {
-        return eBookRepository.findByeNo(eNo).orElseGet(() -> new EBook("ok"));
+        return eBookRepository.findByeNo(eNo).orElseGet(() -> new EBook("Undefined"));
     }
 
 }

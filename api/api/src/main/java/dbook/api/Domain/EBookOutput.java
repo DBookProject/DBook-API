@@ -11,7 +11,7 @@ public class EBookOutput {
 
     Integer no;
 
-    Integer uploader;
+    Long uploader;
 
     String name;
 
@@ -46,7 +46,7 @@ public class EBookOutput {
         return no;
     }
 
-    public Integer getUploader() {
+    public Long getUploader() {
         return uploader;
     }
 
@@ -74,7 +74,7 @@ public class EBookOutput {
         return preview;
     }
 
-    public Boolean getSharable() {
+    public Boolean getIsSharable() {
         return isSharable;
     }
 

@@ -1,10 +1,11 @@
 package dbook.api.Service;
 
-import dbook.api.Domain.EBook;
-import dbook.api.Domain.EBookOutput;
-import dbook.api.Domain.Library;
+import dbook.api.Domain.*;
 import dbook.api.Repository.EBookRepository;
 import dbook.api.Repository.LibraryRepository;
+import dbook.api.Repository.TokenRepository;
+import dbook.api.Repository.UserRepository;
+import dbook.api.Domain.EBookOutput;
 import dbook.api.json.LibraryResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,13 +18,31 @@ import java.util.NoSuchElementException;
 public class LibraryServiceImpl implements LibraryService {
 
     @Autowired
+    UserRepository userRepository;
+
+    @Autowired
+    TokenRepository tokenRepository;
+
+    @Autowired
     EBookRepository eBookRepository;
 
     @Autowired
     LibraryRepository libraryRepository;
 
     @Override
-    public LibraryResponse getLibrary(Integer no) {
+    public LibraryResponse getLibrary(String token) {
+        Long no = 0l;
+
+        try {
+            Token t = tokenRepository.findBytKey(token).get();
+            String email = t.getTOwnerid();
+            User user = userRepository.findByuEmail(email).get();
+            no = user.getId();
+        } catch(NoSuchElementException e) {
+            e.printStackTrace();
+            return new LibraryResponse(400, "Undefined Token");
+        }
+
         List<EBookOutput> books = new ArrayList<>();
 
         List<EBook> bookList = eBookRepository.findByeUploader(no);
@@ -33,12 +52,7 @@ public class LibraryServiceImpl implements LibraryService {
         EBookOutput eBook;
         List<Library> libraryList = libraryRepository.findByPk_uNo(no);
         for(Library library : libraryList) {
-            try {
-                eBook = new EBookOutput(eBookRepository.findByeNo(library.getPk().geteNo()).get());
-            } catch(NoSuchElementException e) {
-                return new LibraryResponse(400, e.getMessage());
-            }
-
+            eBook = new EBookOutput(eBookRepository.findByeNo(library.getPk().geteNo()).get());
             books.add(eBook);
         }
 

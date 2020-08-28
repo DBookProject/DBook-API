@@ -15,22 +15,22 @@ public class LibraryPK implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotNull
-    Integer uNo;
+    Long uNo;
 
     @NotNull
     Integer eNo;
 
-    public LibraryPK(@NotNull Integer uNo, @NotNull Integer eNo) {
+    public LibraryPK(@NotNull Long uNo, @NotNull Integer eNo) {
         super();
         this.uNo = uNo;
         this.eNo = eNo;
     }
 
-    public Integer getuNo() {
+    public Long getuNo() {
         return uNo;
     }
 
-    public void setuNo(Integer no) {
+    public void setuNo(Long no) {
         this.uNo = no;
     }
 

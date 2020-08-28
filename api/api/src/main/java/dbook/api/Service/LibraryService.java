@@ -4,6 +4,6 @@ import dbook.api.json.LibraryResponse;
 
 public interface LibraryService {
 
-    LibraryResponse getLibrary(Integer no);
+    LibraryResponse getLibrary(String token);
 
 }

@@ -9,4 +9,6 @@ public interface TokenRepository extends JpaRepository<Token, Integer> {
 
     Optional<Token> findBytOwnerid(String ownerId);
 
+    Optional<Token> findBytKey(String token);
+
 }

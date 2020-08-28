@@ -2,6 +2,8 @@ package dbook.api.Controller;
 
 import dbook.api.Domain.EBook;
 import dbook.api.Service.EBookService;
+import dbook.api.json.EBookResponse;
+import dbook.api.json.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,12 +18,12 @@ public class EBookController {
     private EBookService eBookService;
 
     @GetMapping("/ebook/path/{no}")
-    public ResponseEntity<String> getPath(@PathVariable Integer no) {
+    public ResponseEntity<EBookResponse> getPath(@PathVariable Integer no) {
         EBook ebook = eBookService.findEBook(no);
 
-        if(ebook.getName().equals("ok"))
-            return new ResponseEntity<>(ebook.getPath(), HttpStatus.OK);
-        return new ResponseEntity<>(ebook.getPath(), HttpStatus.ACCEPTED);
+        if(ebook.getName().equals("Undefined"))
+            return new ResponseEntity<>(new EBookResponse(400, "Undefined Book", null), HttpStatus.ACCEPTED);
+        return new ResponseEntity<>(new EBookResponse(200, "Success getPath", ebook.getPath()), HttpStatus.OK);
     }
 
 }
