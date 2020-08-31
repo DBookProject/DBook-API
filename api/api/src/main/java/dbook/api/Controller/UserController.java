@@ -12,18 +12,19 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
+@RequestMapping("/users")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @PostMapping("/users/sendEmail")
+    @PostMapping("/sendEmail")
     public ResponseEntity<Response> SendEmail(@RequestBody User user) {
         System.out.println("user sendEmail - " + user.getEmail());
         return new ResponseEntity<>(userService.sendEmail(user), HttpStatus.OK);
     }
 
-    @GetMapping("/users/{email}")
+    @GetMapping("/{email}")
     public ResponseEntity<UserResponse> GetUser(@PathVariable String email) {
         User user = userService.findUser(email);
 
@@ -32,14 +33,14 @@ public class UserController {
         return new ResponseEntity<>(new UserResponse(200, "Success getUser", user), HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/users/logins")
+    @PostMapping("/logins")
     public ResponseEntity<LoginResponse> Login(@RequestBody User user) {
         LoginResponse loginResponse = userService.login(user);
         System.out.println("user login - " + loginResponse.getToken() + ", " + loginResponse.getToken());
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/users/signup")
+    @PostMapping("/signup")
     public ResponseEntity<Response> SignUp(@RequestBody Auth auth) {
         return new ResponseEntity<>(userService.signup(auth), HttpStatus.OK);
     }
