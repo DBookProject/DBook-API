@@ -142,12 +142,11 @@ public class UserServiceImpl implements UserService {
             if(objUser == null)
                 return new LoginResponse(400, "Undefined User");
 
-            String password = user.getPassword();
-            if(password == null)
+            if(user.getPassword() == null)
                 return new LoginResponse(400, "Requires Password");
 
-            password = convertSHA256(user.getPassword());
-            if(!user.getPassword().equals(password))
+            String password = objUser.getPassword();
+            if(!convertSHA256(user.getPassword()).equals(password))
                 throw new UserException("Different Password");
 
             String token = makeToken();
