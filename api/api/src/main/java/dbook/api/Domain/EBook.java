@@ -29,8 +29,6 @@ public class EBook {
 
     String eImage;
 
-    String ePreview;
-
     Boolean eIsSharable;
 
     String ePath;
@@ -93,14 +91,6 @@ public class EBook {
 
     public void setImage(String image) {
         this.eImage = image;
-    }
-
-    public String getPreview() {
-        return ePreview;
-    }
-
-    public void setPreview(String preview) {
-        this.ePreview = preview;
     }
 
     public Boolean getIsSharable() {

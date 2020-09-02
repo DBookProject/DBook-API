@@ -1,6 +1,5 @@
 package dbook.api.Controller;
 
-import dbook.api.Domain.Auth;
 import dbook.api.Domain.User;
 import dbook.api.json.UserResponse;
 import dbook.api.Service.UserService;
@@ -36,15 +35,15 @@ public class UserController {
     @PostMapping("/logins")
     public ResponseEntity<LoginResponse> Login(@RequestBody User user) {
         LoginResponse loginResponse = userService.login(user);
-        System.out.println("user login - " + loginResponse.getToken() + ", " + loginResponse.getToken());
+        System.out.println("user login - " + user.getEmail() + ", " + user.getPassword());
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/signup")
-    public ResponseEntity<Response> SignUp(@RequestBody Auth auth) {
-        return new ResponseEntity<>(userService.signup(auth), HttpStatus.OK);
+    @PostMapping("/certify")
+    public ResponseEntity<Response> Certify(@RequestParam("code") String code) {
+        Response response = userService.certify(code);
+        System.out.println("user certify - " + code);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
-
-
 
 }

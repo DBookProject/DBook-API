@@ -23,8 +23,6 @@ public class EBookOutput {
 
     String image;
 
-    String preview;
-
     Boolean isSharable;
 
     String path;
@@ -37,7 +35,6 @@ public class EBookOutput {
         this.author = eBook.getAuthor();
         this.uploadDate = eBook.getUploadDate();
         this.image = eBook.getImage();
-        this.preview = eBook.getPreview();
         this.isSharable = eBook.getIsSharable();
         this.path = eBook.getPath();
     }
@@ -68,10 +65,6 @@ public class EBookOutput {
 
     public String getImage() {
         return image;
-    }
-
-    public String getPreview() {
-        return preview;
     }
 
     public Boolean getIsSharable() {

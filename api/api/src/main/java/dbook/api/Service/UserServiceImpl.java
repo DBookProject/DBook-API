@@ -1,10 +1,8 @@
 package dbook.api.Service;
 
-import dbook.api.Domain.Auth;
 import dbook.api.Domain.Token;
 import dbook.api.Domain.User;
 import dbook.api.Exception.UserException;
-import dbook.api.Repository.AuthRepository;
 import dbook.api.Repository.TokenRepository;
 import dbook.api.Repository.UserRepository;
 import dbook.api.json.LoginResponse;
@@ -21,6 +19,8 @@ import java.security.MessageDigest;
 import java.util.Optional;
 import java.util.Properties;
 import java.util.Random;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -31,16 +31,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     TokenRepository tokenRepository;
 
-    @Autowired
-    AuthRepository authRepository;
-
     @Override
     public Response sendEmail(User user) {
         String sendEmail = "dgswbook@gmail.com"; // 보내는 email 주소
-        String password = "12dgswbook34"; // 보내는 email password
+        String password = "12qwerdbookqwer34!"; // 보내는 email password
         String serverSMTP = "smtp.gmail.com";
         int serverPORT = 465;
-        StringBuilder code = new StringBuilder();
 
         //SMTP 정보
         Properties prop = new Properties();
@@ -58,15 +54,22 @@ public class UserServiceImpl implements UserService {
 
         try {
             String email = user.getEmail();
+            String userPassword = user.getPassword();
+
             if (email == null)
-                return new Response(400, "Requires Email");
-
-            Auth check = findAuth(email);
-            if (!check.getAuth().equals("Undefined"))
-                authRepository.delete(check);
-
+                throw new UserException("Requires Email");
+            if(userPassword == null)
+                throw new UserException("Requires Password");
             if (!findUser(email).getEmail().equals("Undefined"))
                 throw new UserException("User Already Exists");
+
+            Pattern pattern = Pattern.compile("(^(?=.*[0-9])(?=.*[a-zA-Z]).*$)");
+            Matcher matcher = pattern.matcher(userPassword);
+
+            if(userPassword.length() < 8)
+                return new Response(401, "Password Must Be Longer Than 8");
+            if(!matcher.find())
+                return new Response(401, "Password Must Contain Number And English");
 
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(sendEmail));
@@ -74,59 +77,31 @@ public class UserServiceImpl implements UserService {
             //받는사람 메일주소
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(email));
 
-            check = null;
-            do {
-                for (int i = 0; i < 6; i++)
-                    code.append((int) ((Math.random() * 10000) % 10));
-
-                check = authRepository.findByaAuth(code.toString()).orElseGet(() -> new Auth("-1"));
-            } while (!check.getAuth().equals("-1"));
-
             // Subject
-            message.setSubject("[DBOOK] 인증번호"); //메일 제목을 입력
+            message.setSubject("[DBOOK] 인증"); //메일 제목을 입력
 
             // Text
-            message.setText("인증번호 [" + code + "] 를 입력해주세요.");    //메일 내용을 입력
+            StringBuilder code = new StringBuilder();
+            for(int i = 0; i < 4; i++)
+                code.append((int)(Math.random() * 10));
+            user.setCertifyCode(Integer.parseInt(code.toString()));
+            user.setIsCertified(false);
+
+            StringBuilder link = new StringBuilder("http://10.80.162.210:8080/users/certify?code=");
+            link.append(email);
+            link.append(user.getCertifyCode());
+            message.setText("이메일 인증을 완료해주세요!\n" + link);    //메일 내용을 입력
 
             // send the message
             Transport.send(message); ////전송
 
-            check.setEmail(email);
-            check.setAuth(code.toString());
-            authRepository.save(check);
+            user.setPassword(convertSHA256(user.getPassword()));
+            userRepository.save(user);
 
             return new Response(200, "Success sendEmail");
         } catch (MessagingException e) {
             e.printStackTrace();
             return new Response(400, e.getMessage());
-        }
-    }
-
-    @Override
-    public Response signup(Auth auth) {
-        try {
-            String authCode = auth.getAuth();
-            String password = auth.getPassword();
-
-            if(authCode == null)
-                return new Response(400, "Requires Auth");
-            if(password == null)
-                return new Response(400, "Requires Password");
-
-            Auth data = Optional.ofNullable(authRepository.findByaAuth(authCode).orElseThrow(
-                    () -> new UserException("Undefined Auth Code")
-            )).get();
-
-            User user = new User(data.getEmail());
-            user.setPassword(convertSHA256(password));
-
-            userRepository.save(user);
-            authRepository.delete(data);
-
-            return new Response(200, "Success signup");
-        } catch (UserException e) {
-            e.printStackTrace();
-            return new Response(401, e.getMessage());
         }
     }
 
@@ -137,16 +112,17 @@ public class UserServiceImpl implements UserService {
             if(email == null)
                 return new LoginResponse(400, "Requires Email");
 
-            User objUser = userRepository.findByuEmail(email).orElse(null);
+            User objUser = findUser(email);;
 
-            if(objUser == null)
+            if(objUser.getEmail().equals("Undefined"))
                 return new LoginResponse(400, "Undefined User");
-
             if(user.getPassword() == null)
                 return new LoginResponse(400, "Requires Password");
+            if(!objUser.getIsCertified())
+                return new LoginResponse(400, "UnCertified Email");
 
             String password = objUser.getPassword();
-            if(!convertSHA256(user.getPassword()).equals(password))
+            if(!user.getPassword().equals(password))
                 throw new UserException("Different Password");
 
             String token = makeToken();
@@ -165,7 +141,7 @@ public class UserServiceImpl implements UserService {
                 });
             }
 
-            return new LoginResponse(200, "Success logins", token);
+            return new LoginResponse(200, "Success logins", token, objUser);
         } catch (UserException e) {
             e.printStackTrace();
             return new LoginResponse(401, e.getMessage());
@@ -178,8 +154,30 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Auth findAuth(String email) {
-        return authRepository.findByuEmail(email).orElseGet(() -> new Auth("Undefined"));
+    public Response certify(String code) {
+        String email = code.substring(0, code.length() - 4);
+        String certifyCode = code.substring(code.length() - 4, code.length());
+
+        User user = findUser(email);
+
+        if(user.getEmail().equals("Undefined"))
+            return new Response(400, "Undefined User");
+        if(user.getIsCertified())
+            return new Response(401, "Already Certified");
+        if(!user.getCertifyCode().toString().equals(certifyCode))
+            return new Response(400, "Unknown Certify Code");
+
+        try {
+            userRepository.delete(user);
+
+            user.setIsCertified(true);
+            user.setCertifyCode(null);
+            userRepository.save(user);
+        } catch(Exception e) {
+            return new Response(400, e.getMessage());
+        }
+
+        return new Response(200, "Certified Email");
     }
 
     public String makeToken(){
