@@ -12,4 +12,6 @@ public interface EBookRepository extends JpaRepository<EBook, Integer> {
 
     List<EBook> findByeUploader(Long no);
 
+    List<EBook> findByeCategory(String category);
+
 }

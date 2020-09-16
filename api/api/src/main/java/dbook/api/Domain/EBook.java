@@ -33,6 +33,8 @@ public class EBook {
 
     String ePath;
 
+    String eCategory;
+
     public EBook(String name) {
         this.setName(name);
     }
@@ -109,4 +111,11 @@ public class EBook {
         this.ePath = path;
     }
 
+    public String getCategory() {
+        return eCategory;
+    }
+
+    public void setCategory(String category) {
+        this.eCategory = category;
+    }
 }

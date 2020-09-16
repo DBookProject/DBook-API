@@ -39,7 +39,7 @@ public class UserController {
         return new ResponseEntity<>(loginResponse, HttpStatus.OK);
     }
 
-    @PostMapping("/certify")
+    @GetMapping("/certify")
     public ResponseEntity<Response> Certify(@RequestParam("code") String code) {
         Response response = userService.certify(code);
         System.out.println("user certify - " + code);

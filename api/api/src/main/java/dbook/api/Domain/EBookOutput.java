@@ -27,6 +27,8 @@ public class EBookOutput {
 
     String path;
 
+    String category;
+
     public EBookOutput(EBook eBook) {
         this.no = eBook.getNo();
         this.uploader = eBook.getUploader();
@@ -37,6 +39,7 @@ public class EBookOutput {
         this.image = eBook.getImage();
         this.isSharable = eBook.getIsSharable();
         this.path = eBook.getPath();
+        this.category = eBook.getCategory();
     }
 
     public Integer getNo() {
@@ -75,4 +78,7 @@ public class EBookOutput {
         return path;
     }
 
+    public String getCategory() {
+        return category;
+    }
 }
