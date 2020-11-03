@@ -14,9 +14,11 @@ import dgsw.dbook.api.Repository.LibraryRepository;
 import dgsw.dbook.api.Repository.TokenRepository;
 import dgsw.dbook.api.Response.ObjectResponse;
 import dgsw.dbook.api.Response.Response;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+@Slf4j
 @Service
 public class LibraryServiceImpl implements LibraryService {
 
@@ -33,7 +35,7 @@ public class LibraryServiceImpl implements LibraryService {
     public Response addBook(String token, EBook eBook) {
         try {
             String email = tokenRepository.findByToken(token).map(Token::getUserEmail).orElseThrow(
-                    () -> new UserException(403, "Undefined Token")
+                    () -> new UserException(401, "Undefined Token")
             );
 
             Long ebookId = eBook.getId();
@@ -53,7 +55,7 @@ public class LibraryServiceImpl implements LibraryService {
         } catch (UserException e) {
             return new Response(e.getStatus(), e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("addBook Error", e);
             return new Response(500, e.getMessage());
         }
     }
@@ -62,7 +64,7 @@ public class LibraryServiceImpl implements LibraryService {
     public ObjectResponse getLibrary(String token) {
         try {
             String email = tokenRepository.findByToken(token).map(Token::getUserEmail).orElseThrow(
-                    () -> new UserException(403, "Undefined Token")
+                    () -> new UserException(401, "Undefined Token")
             );
 
             List<Library> list = libraryRepository.findByPk_UserEmail(email);
@@ -76,7 +78,7 @@ public class LibraryServiceImpl implements LibraryService {
         } catch (UserException e) {
             return new ObjectResponse(e.getStatus(), e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("getLibrary Error", e);
             return new ObjectResponse(500, e.getMessage());
         }
     }
@@ -84,11 +86,11 @@ public class LibraryServiceImpl implements LibraryService {
     @Override
     public ObjectResponse getUploaded(String token) {
         try {
-            String email = tokenRepository.findByToken(token).map(Token::getUserEmail).orElseThrow(
-                    () -> new UserException(403, "Undefined Token")
+            Long uploader = tokenRepository.findByToken(token).map(Token::getId).orElseThrow(
+                    () -> new UserException(401, "Undefined Token")
             );
 
-            List<EBook> list = eBookRepository.findByUploader(email);
+            List<EBook> list = eBookRepository.findByUploader(uploader);
 
             Map<String, Object> map = new HashMap<>();
             map.put("books", list);
@@ -96,7 +98,7 @@ public class LibraryServiceImpl implements LibraryService {
         } catch (UserException e) {
             return new ObjectResponse(e.getStatus(), e.getMessage());
         } catch (Exception e) {
-            e.printStackTrace();
+            log.error("getUploaded Error", e);
             return new ObjectResponse(500, e.getMessage());
         }
     }

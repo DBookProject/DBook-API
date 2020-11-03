@@ -11,14 +11,15 @@ import javax.persistence.*;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "category_id")
+    Long id;
+
     @Column(name = "category_name", unique = true)
     String name;
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
+    public Category(String name) {
         this.name = name;
     }
+
 }

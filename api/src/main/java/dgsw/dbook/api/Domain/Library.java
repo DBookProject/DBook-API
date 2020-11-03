@@ -13,8 +13,4 @@ public class Library {
     @EmbeddedId
     LibraryPk pk;
 
-    public LibraryPk getPk() {
-        return pk;
-    }
-
 }

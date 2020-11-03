@@ -26,20 +26,4 @@ public class LibraryPk implements Serializable {
         this.ebookId = ebookId;
     }
 
-    public String getUserEmail() {
-        return userEmail;
-    }
-
-    public void setUserEmail(String userEmail) {
-        this.userEmail = userEmail;
-    }
-
-    public Long getEbookId() {
-        return ebookId;
-    }
-
-    public void setEbookId(Long ebookId) {
-        this.ebookId = ebookId;
-    }
-
 }

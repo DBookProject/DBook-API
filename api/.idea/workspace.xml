@@ -20,127 +20,35 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bc620862-7093-411f-a53f-ca61ebca6737" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/EBookController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/LibraryController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/UserController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/DBookApiApplication.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Category.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Library.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/LibraryPk.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Token.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/User.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Exception/UserException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/EBookRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/LibraryRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/TokenRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/UserRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Response/LoginResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Response/ObjectResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Response/Response.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/LibraryService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/LibraryServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserService.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserServiceImpl.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/test/java/dgsw/dbook/api/DBookApiApplicationTests.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/Api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/modules.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/vcs.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.idea/workspace.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/api.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBookData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBookFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBookImageFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/UserData.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/UserImageFile.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/CategoryRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/EBookFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/EBookImageFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/UserImageFileRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Response/ListResponse.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/ApiApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/CORS.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Controller/EBookController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Controller/LibraryController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/EBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/EBookOutput.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/Library.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/LibraryPK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/Token.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Domain/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Exception/UserException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Repository/EBookRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Repository/LibraryRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Repository/TokenRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/EBookService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/EBookServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/LibraryService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/LibraryServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/Service/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/json/EBookResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/json/LibraryResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/json/LoginResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/json/Response.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/java/dbook/api/json/UserResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/src/test/java/dbook/api/ApiApplicationTests.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/build.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/gradle/wrapper/gradle-wrapper.jar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/gradle/wrapper/gradle-wrapper.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/gradlew" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/gradlew.bat" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/settings.gradle" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/CORS.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Controller/UserController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Controller/ViewController.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/DBookApplication.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Domain/EBook.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Domain/Library.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Domain/LibraryPK.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Domain/Token.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Domain/User.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Exception/UserException.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Repository/TokenRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Repository/UserRepository.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Service/UserService.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/Service/UserServiceImpl.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/json/LoginResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/json/ResponseLogin.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/java/kr/hs/dgsw/dbook/json/SignUpResponse.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/application.properties" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/Modal1.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/Modal1.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/first.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/main.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/mylibrary.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/reviseSemantic.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/setup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/css/signup.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/etc/header.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/etc/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/etc/main22.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/etc/main22.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/front.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/img/동물.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/img/리뷰.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/img/부엉이.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/img/삼국지.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/img/여우.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/login.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/main.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/mylibrary.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/pngwing.com.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/setting.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/signup.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/main/resources/static/upload.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/../dbook(pre)/src/test/java/kr/hs/dgsw/dbook/DbookApplicationTests.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/build.gradle" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/EBookController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/EBookController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/LibraryController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/LibraryController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Category.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Category.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBook.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/EBook.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Library.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Library.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/LibraryPk.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/LibraryPk.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Token.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/Token.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Domain/User.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/EBookRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/EBookRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/TokenRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Repository/TokenRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/EBookServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/LibraryServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/LibraryServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dgsw/dbook/api/Service/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -174,15 +82,16 @@
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../chatTest" />
     <property name="settings.editor.selected.configurable" value="reference.projectsettings.compiler.annotationProcessors" />
     <property name="show.unlinked.gradle.project.popup" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="dgsw.dbook.api.Domain" />
+      <recent name="dgsw.dbook.api.Repository" />
       <recent name="dgsw.dbook.api.Response" />
       <recent name="dgsw.dbook.api.Controller" />
-      <recent name="dgsw.dbook.api.Domain" />
       <recent name="dgsw.dbook.api" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
@@ -236,10 +145,10 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="223" y="72" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.834@0.0.1536.834" timestamp="1602923440608" />
-    <state x="612" y="166" key="#com.intellij.ide.util.MemberChooser" timestamp="1602945125383">
-      <screen x="0" y="0" width="1536" height="834" />
+    <state x="765" y="209" key="#com.intellij.ide.util.MemberChooser" timestamp="1604367846562">
+      <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="765" y="209" key="#com.intellij.ide.util.MemberChooser/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1602662389137" />
+    <state x="765" y="209" key="#com.intellij.ide.util.MemberChooser/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604367846562" />
     <state x="612" y="166" key="#com.intellij.ide.util.MemberChooser/0.0.1536.834@0.0.1536.834" timestamp="1602945125383" />
     <state x="498" y="206" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1602923427432">
       <screen x="0" y="0" width="1536" height="834" />
@@ -253,30 +162,42 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="549" y="284" width="437" height="272" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.classes/0.0.1536.834@0.0.1536.834" timestamp="1602921292329" />
-    <state x="485" y="260" key="FileChooserDialogImpl" timestamp="1602662674787">
+    <state x="701" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1604367258794">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state x="485" y="260" key="FileChooserDialogImpl/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1602662674787" />
-    <state width="1877" height="170" key="GridCell.Tab.0.bottom" timestamp="1603268139387">
+    <state x="701" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604367258794" />
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1604317138140">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="170" key="GridCell.Tab.0.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1603268139387" />
+    <state x="690" y="271" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604317138140" />
+    <state x="485" y="260" key="FileChooserDialogImpl" timestamp="1603364703880">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="485" y="260" key="FileChooserDialogImpl/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1603364703880" />
+    <state width="1877" height="170" key="GridCell.Tab.0.bottom" timestamp="1604371907604">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state width="1877" height="170" key="GridCell.Tab.0.bottom/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604371907604" />
     <state width="1493" height="169" key="GridCell.Tab.0.bottom/0.0.1536.834@0.0.1536.834" timestamp="1602988828754" />
-    <state width="1877" height="170" key="GridCell.Tab.0.center" timestamp="1603268139387">
+    <state width="1877" height="170" key="GridCell.Tab.0.bottom/0.0.1920.1050@0.0.1920.1050" timestamp="1603883774870" />
+    <state width="1877" height="170" key="GridCell.Tab.0.center" timestamp="1604371907604">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="170" key="GridCell.Tab.0.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1603268139387" />
+    <state width="1877" height="170" key="GridCell.Tab.0.center/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604371907604" />
     <state width="1493" height="169" key="GridCell.Tab.0.center/0.0.1536.834@0.0.1536.834" timestamp="1602988828754" />
-    <state width="1877" height="170" key="GridCell.Tab.0.left" timestamp="1603268139387">
+    <state width="1877" height="170" key="GridCell.Tab.0.center/0.0.1920.1050@0.0.1920.1050" timestamp="1603883774870" />
+    <state width="1877" height="170" key="GridCell.Tab.0.left" timestamp="1604371907604">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="170" key="GridCell.Tab.0.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1603268139387" />
+    <state width="1877" height="170" key="GridCell.Tab.0.left/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604371907604" />
     <state width="1493" height="169" key="GridCell.Tab.0.left/0.0.1536.834@0.0.1536.834" timestamp="1602988828754" />
-    <state width="1877" height="170" key="GridCell.Tab.0.right" timestamp="1603268139387">
+    <state width="1877" height="170" key="GridCell.Tab.0.left/0.0.1920.1050@0.0.1920.1050" timestamp="1603883774870" />
+    <state width="1877" height="170" key="GridCell.Tab.0.right" timestamp="1604371907604">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
-    <state width="1877" height="170" key="GridCell.Tab.0.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1603268139387" />
+    <state width="1877" height="170" key="GridCell.Tab.0.right/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604371907604" />
     <state width="1493" height="169" key="GridCell.Tab.0.right/0.0.1536.834@0.0.1536.834" timestamp="1602988828754" />
+    <state width="1877" height="170" key="GridCell.Tab.0.right/0.0.1920.1050@0.0.1920.1050" timestamp="1603883774870" />
     <state x="461" y="169" key="SettingsEditor" timestamp="1602545959714">
       <screen x="0" y="0" width="1920" height="1050" />
     </state>
@@ -289,5 +210,13 @@
       <screen x="0" y="0" width="1536" height="834" />
     </state>
     <state x="611" y="173" key="refactoring.ChangeSignatureDialog/0.0.1536.834@0.0.1536.834" timestamp="1602921379184" />
+    <state x="616" y="243" key="run.anything.popup" timestamp="1604369125804">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="616" y="243" key="run.anything.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604369125804" />
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup" timestamp="1604373884463">
+      <screen x="0" y="0" width="1920" height="1050" />
+    </state>
+    <state x="623" y="227" width="672" height="678" key="search.everywhere.popup/-1920.0.1536.840/0.0.1920.1050@0.0.1920.1050" timestamp="1604373884463" />
   </component>
 </project>
