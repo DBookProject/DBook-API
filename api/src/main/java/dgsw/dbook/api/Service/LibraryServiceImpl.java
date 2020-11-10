@@ -7,6 +7,7 @@ import java.util.Map;
 
 import dgsw.dbook.api.Domain.EBook;
 import dgsw.dbook.api.Domain.Library;
+import dgsw.dbook.api.Domain.LibraryPk;
 import dgsw.dbook.api.Domain.Token;
 import dgsw.dbook.api.Exception.UserException;
 import dgsw.dbook.api.Repository.EBookRepository;
@@ -47,6 +48,7 @@ public class LibraryServiceImpl implements LibraryService {
             );
 
             Library library = new Library();
+            library.setPk(new LibraryPk());
             library.getPk().setUserEmail(email);
             library.getPk().setEbookId(ebookId);
 
@@ -69,8 +71,13 @@ public class LibraryServiceImpl implements LibraryService {
 
             List<Library> list = libraryRepository.findByPk_UserEmail(email);
             List<EBook> bookList = new ArrayList<>();
-            for(Object library : list)
-                eBookRepository.findById(((Library) library).getPk().getEbookId());
+            EBook eBook;
+            for(Object library : list) {
+                eBook = eBookRepository.findById(((Library) library).getPk().getEbookId()).orElse(null);
+
+                if(eBook != null)
+                    bookList.add(eBook);
+            }
 
             Map<String, Object> map = new HashMap<>();
             map.put("books", bookList);

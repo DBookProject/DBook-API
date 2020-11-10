@@ -4,10 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
 import javax.validation.constraints.NotNull;
-import java.sql.Blob;
-import java.sql.SQLException;
 
 @Entity
 @Data
@@ -19,11 +16,12 @@ public class UserImageFile {
     @Column(name = "image_id")
     Long userImageId;
 
+    @Lob
     @Column(name = "user_profile_image", nullable = false)
-    Blob userProfileImage;
+    byte[] userProfileImage;
 
-    public UserImageFile(@NotNull byte[] userProfileImage) throws SQLException {
-        this.userProfileImage = new SerialBlob(userProfileImage);
+    public UserImageFile(@NotNull byte[] userProfileImage) {
+        this.userProfileImage = userProfileImage;
     }
 
 }

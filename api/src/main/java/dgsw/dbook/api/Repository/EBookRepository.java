@@ -18,6 +18,8 @@ public interface EBookRepository extends JpaRepository<EBook, Long> {
 
     List<EBook> findByCategory(Long categoryId);
 
+    Optional<EBook> findByBookFile(Long fileId);
+
     @Transactional
     @Modifying
     @Query(value = "UPDATE ebook SET ebook_title = :ebookTitle, ebook_author = :ebookAuthor, ebook_category = :ebookCategory, " +

@@ -19,7 +19,7 @@ public class LibraryController {
     LibraryService libraryService;
 
     @PostMapping("/add")
-    public ResponseEntity<Response> addBook(@RequestHeader(value = "Token") String token, EBook eBook) {
+    public ResponseEntity<Response> addBook(@RequestHeader(value = "Token") String token, @RequestBody EBook eBook) {
         log.info("addLibrary - {}, {}", token, eBook);
         return new ResponseEntity<>(libraryService.addBook(token, eBook), HttpStatus.OK);
     }

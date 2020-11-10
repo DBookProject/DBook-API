@@ -27,6 +27,9 @@ public class User {
     @Column(name = "user_profile_image")
     Long profileImage;
 
+    @Column(name = "user_library_name")
+    String libraryName;
+
     public User(String email) {
         this.email = email;
     }

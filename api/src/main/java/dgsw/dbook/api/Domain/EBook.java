@@ -22,7 +22,7 @@ public class EBook {
     String author;
 
     @Column(name = "category")
-    String category;
+    Long category;
 
     @Column(name = "ebook_cover_image")
     Long coverImage;

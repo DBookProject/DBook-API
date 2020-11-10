@@ -14,12 +14,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ByteArrayResource;
 import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.net.Inet4Address;
 import java.net.UnknownHostException;
-import java.sql.Blob;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
@@ -40,7 +39,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public LoginResponse signUp(UserData userData) {
-        MultipartFile profileImage = userData.getFile();
+        MultipartFile profileImage = userData.getProfileImage();
 
         try {
             String email = userData.getEmail();
@@ -60,15 +59,16 @@ public class UserServiceImpl implements UserService {
             User user = new User(email);
 
             if(profileImage != null) {
-                String extendStr = StringUtils.cleanPath(Objects.requireNonNull(profileImage.getOriginalFilename()));
-                if(extendStr.length() < 4)
-                    throw new UserException(403, "Too Short Image Extend Name");
+                String extendStr = new String(Objects.requireNonNull(
+                        profileImage.getOriginalFilename()).toLowerCase().getBytes(StandardCharsets.UTF_8));
+                UserImageFile imageFile;
 
-                extendStr = extendStr.substring(extendStr.length() - 4);
-                if(!extendStr.equals(".jpg") && !extendStr.equals(".png"))
+                System.out.println(extendStr);
+                if(extendStr.endsWith(".jpg") || extendStr.endsWith(".png") || extendStr.endsWith(".jpeg"))
+                    imageFile = new UserImageFile(profileImage.getBytes());
+                else
                     throw new UserException(403, "Unsupported Image Extend Name");
 
-                UserImageFile imageFile = new UserImageFile(profileImage.getBytes());
                 imageFile = imageFileRepository.save(imageFile);
                 user.setProfileImage(imageFile.getUserImageId());
             }
@@ -127,7 +127,13 @@ public class UserServiceImpl implements UserService {
             userObject.put("email", user.getEmail());
             userObject.put("name", user.getName());
             userObject.put("password", user.getPassword());
-            userObject.put("profileImage", "/user/image/" + user.getProfileImage());
+
+            Long profileImage = user.getProfileImage();
+
+            if(profileImage != null)
+                userObject.put("profileImage", "/user/image/" + profileImage);
+            else
+                userObject.put("profileImage", "null");
 
             object.put("user", userObject);
             return new LoginResponse(200, "Success Login", tok, object);
@@ -142,12 +148,9 @@ public class UserServiceImpl implements UserService {
     @Override
     public Resource getImage(long imageId) {
         try {
-            Blob imageBlob = imageFileRepository.findById(imageId).map(UserImageFile::getUserProfileImage).orElseThrow(
+            return new ByteArrayResource(imageFileRepository.findById(imageId).map(UserImageFile::getUserProfileImage).orElseThrow(
                     () -> new UserException(403, "Undefined ImageId")
-            );
-            byte[] bytes = imageBlob.getBytes(1L, (int)imageBlob.length());
-
-            return new ByteArrayResource(bytes);
+            ));
         } catch (UserException e) {
             return null;
         } catch (Exception e) {

@@ -28,6 +28,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compile group: 'commons-io', name: 'commons-io', version: '2.6'
 	compile group: 'commons-fileupload', name: 'commons-fileupload', version: '1.4'
+	compile group: 'org.postgresql', name: 'postgresql', version: '42.1.4'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'mysql:mysql-connector-java'

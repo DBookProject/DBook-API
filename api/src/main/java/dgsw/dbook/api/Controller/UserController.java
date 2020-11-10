@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Slf4j
 @RestController
 @RequestMapping("/user")
@@ -35,18 +33,15 @@ public class UserController {
     }
 
     @GetMapping("/image/{imageId}")
-    public ResponseEntity<Resource> getImage(@PathVariable long imageId, HttpServletRequest request) {
+    public ResponseEntity<Resource> getImage(@PathVariable long imageId) {
         log.info("getUserProfileImage - {}", imageId);
 
         Resource resource = userService.getImage(imageId);
-
         if(resource == null)
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
 
         try {
-            return ResponseEntity.ok()
-                    .contentType(MediaType.IMAGE_PNG)
-                    .body(resource);
+            return ResponseEntity.ok().contentType(MediaType.IMAGE_PNG).body(resource);
         } catch (Exception e) {
             log.error("getImage Error", e);
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

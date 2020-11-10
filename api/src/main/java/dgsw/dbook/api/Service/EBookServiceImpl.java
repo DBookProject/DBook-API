@@ -1,5 +1,7 @@
 package dgsw.dbook.api.Service;
 
+import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 import dgsw.dbook.api.Domain.*;
@@ -9,8 +11,10 @@ import dgsw.dbook.api.Response.ListResponse;
 import dgsw.dbook.api.Response.Response;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.FileSystemResource;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.sql.rowset.serial.SerialBlob;
@@ -52,15 +56,17 @@ public class EBookServiceImpl implements EBookService {
                     topMap = new HashMap<>();
                     dataArray = new ArrayList<>();
 
+                    String categoryName = category.getName();
+
                     for(EBook eBook : eBookRepository.findByCategory(category.getId())) {
                         dataMap = new HashMap<>();
 
                         dataMap.put("id", eBook.getId());
-                        dataMap.put("category", eBook.getCategory());
+                        dataMap.put("category", categoryName);
                         dataMap.put("title", eBook.getTitle());
                         dataMap.put("author", eBook.getAuthor());
+                        dataMap.put("cover_image", "/ebook/image/" + eBook.getCoverImage());
                         dataMap.put("book_file", eBook.getBookFile());
-                        dataMap.put("cover_image", eBook.getCoverImage());
                         dataMap.put("description", eBook.getDescription());
                         dataMap.put("uploader_id", eBook.getUploader());
                         dataMap.put("publisher", eBook.getPublisher());
@@ -68,7 +74,7 @@ public class EBookServiceImpl implements EBookService {
                         dataArray.add(dataMap);
                     }
 
-                    topMap.put("categoryName", category.getName());
+                    topMap.put("categoryName", categoryName);
                     topMap.put("categoryId", category.getId());
                     topMap.put("data", dataArray);
                     topList.add(topMap);
@@ -96,22 +102,14 @@ public class EBookServiceImpl implements EBookService {
             String category = bookData.getCategory();
 
             MultipartFile coverImage = bookData.getCoverImage();
-            String extendStr = StringUtils.cleanPath(Objects.requireNonNull(coverImage.getOriginalFilename()));
-            if(extendStr.length() < 4)
-                throw new UserException(403, "Too Short Image Extend Name");
-
-            extendStr = extendStr.substring(extendStr.length() - 4);
-            if(!extendStr.equals(".jpg") && !extendStr.equals(".png"))
-                throw new UserException(403, "Unsupported Image Extend Name");
+            String extendStr = new String(Objects.requireNonNull(coverImage.getOriginalFilename()).toLowerCase().getBytes(StandardCharsets.UTF_8));
+            if(!extendStr.endsWith(".jpg") && !extendStr.endsWith(".png"))
+                throw new UserException(403, "Unsupported Image Extend Name - " + extendStr);
 
             MultipartFile bookFile = bookData.getBookFile();
-            extendStr = StringUtils.cleanPath(Objects.requireNonNull(bookFile.getOriginalFilename()));
-            if(extendStr.length() < 5)
-                throw new UserException(403, "Too Short File Extend Name");
-
-            extendStr = extendStr.substring(extendStr.length() - 5);
-            if(!extendStr.equals(".epub"))
-                throw new UserException(403, "Unsupported File Extend Name");
+            extendStr = new String(Objects.requireNonNull(bookFile.getOriginalFilename()).toLowerCase().getBytes(StandardCharsets.UTF_8));
+            if(!extendStr.endsWith(".epub"))
+                throw new UserException(403, "Unsupported File Extend Name - " + extendStr);
 
             String description = bookData.getDescription();
             String publisher = bookData.getPublisher();
@@ -128,7 +126,11 @@ public class EBookServiceImpl implements EBookService {
             EBook eBook = new EBook();
             eBook.setTitle(title);
             eBook.setAuthor(author);
-            eBook.setCategory(category);
+
+            long categoryId = categoryRepository.findByName(category).map(Category::getId).orElse(-1L);
+            if(categoryId == -1)
+                categoryId = categoryRepository.save(new Category(category)).getId();
+            eBook.setCategory(categoryId);
 
             EBookImageFile eBookImageFile = new EBookImageFile(coverImage.getBytes());
             eBookImageFile = imageFileRepository.save(eBookImageFile);
@@ -141,9 +143,6 @@ public class EBookServiceImpl implements EBookService {
             eBook.setDescription(description);
             eBook.setPublisher(publisher);
             eBook.setUploader(uploader);
-
-            if(!categoryRepository.findByName(category).isPresent())
-                categoryRepository.save(new Category(category));
 
             eBookRepository.save(eBook);
             return new Response(200, "Success UploadBook");
@@ -192,12 +191,8 @@ public class EBookServiceImpl implements EBookService {
             String extendStr;
 
             if(coverImage != null) {
-                extendStr = StringUtils.cleanPath(Objects.requireNonNull(coverImage.getOriginalFilename()));
-                if (extendStr.length() < 4)
-                    throw new UserException(403, "Too Short Image Extend Name");
-
-                extendStr = extendStr.substring(extendStr.length() - 4);
-                if (!extendStr.equals(".jpg") && !extendStr.equals(".png"))
+                extendStr = new String(Objects.requireNonNull(coverImage.getOriginalFilename()).toLowerCase().getBytes(StandardCharsets.UTF_8));
+                if (!extendStr.endsWith(".jpg") && !extendStr.endsWith(".png"))
                     throw new UserException(403, "Unsupported Image Extend Name");
 
                 imageFileRepository.editFile(eBook.getCoverImage(), new SerialBlob(bookData.getCoverImage().getBytes()));
@@ -205,7 +200,7 @@ public class EBookServiceImpl implements EBookService {
 
             MultipartFile bookFile = bookData.getBookFile();
             if(bookFile != null) {
-                extendStr = StringUtils.cleanPath(Objects.requireNonNull(bookFile.getOriginalFilename()));
+                extendStr = new String(Objects.requireNonNull(bookFile.getOriginalFilename()).toLowerCase().getBytes(StandardCharsets.UTF_8));
                 if (extendStr.length() < 4)
                     throw new UserException(403, "Too Short File Extend Name");
 
@@ -256,6 +251,46 @@ public class EBookServiceImpl implements EBookService {
         } catch (Exception e) {
             log.error("deleteBook Error", e);
             return new Response(500, e.getMessage());
+        }
+    }
+
+    @Override
+    public Resource getImage(long imageId) {
+        try {
+            return new ByteArrayResource(imageFileRepository.findById(imageId).map(EBookImageFile::getEBookImageFile).orElseThrow(
+                    () -> new UserException(403, "Undefined ImageId")
+            ));
+        } catch (UserException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("getEbookImage Error", e);
+            return null;
+        }
+    }
+
+    @Override
+    public Object[] getFile(long fileId) {
+        try {
+            EBook eBook = eBookRepository.findByBookFile(fileId).orElse(null);
+            byte[] bytes = fileRepository.findById(fileId).map(EBookFile::getEBookFile).orElseThrow(
+                    () -> new UserException(403, "Undefined FileId")
+            );
+
+            StringBuilder fileName = new StringBuilder("");
+            fileName.append(eBook.getTitle());
+            fileName.append(" - ");
+            fileName.append(eBook.getAuthor());
+            fileName.append(".epub");
+
+            Object[] objects = new Object[2];
+            objects[0] = new ByteArrayResource(bytes);
+            objects[1] = fileName.toString();
+            return objects;
+        } catch (UserException e) {
+            return null;
+        } catch (Exception e) {
+            log.error("getEbookFile Error", e);
+            return null;
         }
     }
 

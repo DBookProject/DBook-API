@@ -14,6 +14,6 @@ public class UserData implements Serializable {
 
     private String password;
 
-    private MultipartFile file;
+    private MultipartFile profileImage;
 
 }
