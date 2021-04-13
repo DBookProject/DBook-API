@@ -19,21 +19,24 @@ public class LibraryController {
     LibraryService libraryService;
 
     @PostMapping("/add")
-    public ResponseEntity<Response> addBook(@RequestHeader(value = "Token") String token, @RequestBody EBook eBook) {
+    public ResponseEntity<Response> addBook(@RequestHeader(value = "Authentication") String token, @RequestBody EBook eBook) {
         log.info("addLibrary - {}, {}", token, eBook);
-        return new ResponseEntity<>(libraryService.addBook(token, eBook), HttpStatus.OK);
+        Response response = libraryService.addBook(token, eBook);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @GetMapping("")
-    public ResponseEntity<ObjectResponse> getLibrary(@RequestHeader(value = "Token") String token) {
+    public ResponseEntity<ObjectResponse> getLibrary(@RequestHeader(value = "Authentication") String token) {
         log.info("getLibrary - {}", token);
-        return new ResponseEntity<>(libraryService.getLibrary(token), HttpStatus.OK);
+        ObjectResponse response = libraryService.getLibrary(token);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @GetMapping("/uploaded")
-    public ResponseEntity<ObjectResponse> getUploaded(@RequestHeader(value = "Token") String token) {
+    public ResponseEntity<ObjectResponse> getUploaded(@RequestHeader(value = "Authentication") String token) {
         log.info("uploaded - {}", token);
-        return new ResponseEntity<>(libraryService.getUploaded(token), HttpStatus.OK);
+        ObjectResponse response = libraryService.getUploaded(token);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
 }

@@ -12,8 +12,6 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.io.File;
-
 @Slf4j
 @RestController
 @RequestMapping("/ebook")
@@ -25,25 +23,29 @@ public class EBookController {
     @GetMapping("/list")
     public ResponseEntity<ListResponse> getList() {
         log.info("getEBookList");
-        return new ResponseEntity<>(eBookService.getList(), HttpStatus.OK);
+        ListResponse response = eBookService.getList();
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<Response> upload(@RequestHeader(value = "Token") String token, @ModelAttribute EBookData eBookData) {
+    public ResponseEntity<Response> upload(@RequestHeader(value = "Authentication") String token, @ModelAttribute EBookData eBookData) {
         log.info("uploadBook - {}, {}", token, eBookData);
-        return new ResponseEntity<>(eBookService.uploadBook(token, eBookData), HttpStatus.OK);
+        Response response = eBookService.uploadBook(token, eBookData);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @PutMapping("/{bookId}")
-    public ResponseEntity<Response> editBook(@RequestHeader(value = "Token") String token, @PathVariable long bookId, @ModelAttribute EBookData eBookData) {
+    public ResponseEntity<Response> editBook(@RequestHeader(value = "Authentication") String token, @PathVariable long bookId, @ModelAttribute EBookData eBookData) {
         log.info("editBook - {}, {}, {}", token, bookId, eBookData);
-        return new ResponseEntity<>(eBookService.editBook(token, bookId, eBookData), HttpStatus.OK);
+        Response response = eBookService.editBook(token, bookId, eBookData);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @DeleteMapping("/{bookId}")
-    public ResponseEntity<Response> deleteBook(@RequestHeader(value = "Token") String token, @PathVariable long bookId) {
+    public ResponseEntity<Response> deleteBook(@RequestHeader(value = "Authentication") String token, @PathVariable long bookId) {
         log.info("deleteBook - {}, {}", token, bookId);
-        return new ResponseEntity<>(eBookService.deleteBook(token, bookId), HttpStatus.OK);
+        Response response = eBookService.deleteBook(token, bookId);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @GetMapping("/image/{imageId}")

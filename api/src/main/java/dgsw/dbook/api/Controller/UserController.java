@@ -23,13 +23,15 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<Response> login(@RequestBody User user) {
         log.info("login - {}", user);
-        return new ResponseEntity<>(userService.login(user), HttpStatus.OK);
+        Response response = userService.login(user);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @PostMapping("/sign-up")
     public ResponseEntity<Response> register(@ModelAttribute UserData userData) {
         log.info("signUp - {}", userData);
-        return new ResponseEntity<>(userService.signUp(userData), HttpStatus.OK);
+        Response response = userService.signUp(userData);
+        return new ResponseEntity<>(response, HttpStatus.valueOf(response.getCode()));
     }
 
     @GetMapping("/image/{imageId}")
