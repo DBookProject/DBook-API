@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Data
@@ -21,8 +22,8 @@ public class EBook {
     @Column(name = "ebook_author")
     String author;
 
-    @Column(name = "category")
-    Long category;
+    @Column(name = "category_id")
+    Long categoryId;
 
     @Column(name = "ebook_cover_image")
     Long coverImage;
@@ -38,5 +39,8 @@ public class EBook {
 
     @Column(name = "ebook_publisher")
     String publisher;
+
+    @Column(name = "ebook_published")
+    LocalDateTime published;
     
 }

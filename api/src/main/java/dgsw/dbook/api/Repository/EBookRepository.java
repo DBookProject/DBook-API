@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -16,16 +17,18 @@ public interface EBookRepository extends JpaRepository<EBook, Long> {
 
     List<EBook> findByUploader(Long uploader);
 
-    List<EBook> findByCategory(Long categoryId);
+    List<EBook> findByCategoryId(Long categoryId);
 
     Optional<EBook> findByBookFile(Long fileId);
 
     @Transactional
     @Modifying
-    @Query(value = "UPDATE ebook SET ebook_title = :ebookTitle, ebook_author = :ebookAuthor, ebook_category = :ebookCategory, " +
-            "ebook_description = :ebookDescription, ebook_publisher = :ebookPublisher WHERE ebook_id = :ebookId", nativeQuery = true)
+    @Query(value = "UPDATE ebook SET ebook_title = :ebookTitle, ebook_author = :ebookAuthor, category_id = :ebookCategory, " +
+            "ebook_description = :ebookDescription, ebook_publisher = :ebookPublisher, ebook_published = :ebookPublished " +
+            "WHERE ebook_id = :ebookId" , nativeQuery = true)
     void editBook(@Param("ebookId") long ebookId, @Param("ebookTitle") String ebookTitle,
-                  @Param("ebookAuthor") String ebookAuthor, @Param("ebookCategory") String ebookCategory,
-                  @Param("ebookDescription") String ebookDescription, @Param("ebookPublisher") String ebookPublisher);
+                  @Param("ebookAuthor") String ebookAuthor, @Param("ebookCategory") Long ebookCategory,
+                  @Param("ebookDescription") String ebookDescription, @Param("ebookPublisher") String ebookPublisher,
+                  @Param("ebookPublished") LocalDateTime ebookPublished);
 
 }

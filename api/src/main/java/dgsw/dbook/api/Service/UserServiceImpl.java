@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService {
                 throw new UserException(412, "Requires Name");
 
             if(!this.findUser(email).getEmail().equals("Undefined Email"))
-                throw new UserException(403, "Already Existing Email");
+                throw new UserException(412, "Already Existing Email");
 
             User user = new User(email);
 
@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService {
                 if(extendStr.endsWith(".jpg") || extendStr.endsWith(".png") || extendStr.endsWith(".jpeg"))
                     imageFile = new UserImageFile(profileImage.getBytes());
                 else
-                    throw new UserException(403, "Unsupported Image Extend Name");
+                    throw new UserException(412, "Unsupported Image Extend Name");
 
                 imageFile = imageFileRepository.save(imageFile);
                 user.setProfileImage(imageFile.getUserImageId());
@@ -78,11 +78,11 @@ public class UserServiceImpl implements UserService {
             userRepository.save(user);
 
             LoginResponse response = this.login(user);
-            if(response.getStatus() == 200)
+            if(response.getCode() == 200)
                 response.setMessage("Success SignUp/Login");
             return response;
         } catch (UserException e) {
-            return new LoginResponse(e.getStatus(), e.getMessage());
+            return new LoginResponse(e.getCode(), e.getMessage());
         } catch (Exception e) {
             log.error("signUp Error", e);
             return new LoginResponse(500, e.getMessage());
@@ -96,14 +96,14 @@ public class UserServiceImpl implements UserService {
             String password = user.getPassword();
 
             if(email == null)
-                throw new UserException(412, "Requires Email");
+                throw new UserException(401, "Requires Email");
             if(password == null)
-                throw new UserException(412, "Requires Password");
+                throw new UserException(401, "Requires Password");
 
             User findUser = this.findUser(email);
 
             if(findUser.getEmail().equals("Undefined Email"))
-                throw new UserException(403, findUser.getEmail());
+                throw new UserException(401, findUser.getEmail());
             if(!findUser.getPassword().equals(password))
                 throw new UserException(401, "Password Different");
 
@@ -123,12 +123,12 @@ public class UserServiceImpl implements UserService {
 
             Map<String, Object> object = new HashMap<>();
             Map<String, Object> userObject = new HashMap<>();
-            userObject.put("userId", user.getUserId());
-            userObject.put("email", user.getEmail());
-            userObject.put("name", user.getName());
-            userObject.put("password", user.getPassword());
+            userObject.put("userId", findUser.getUserId());
+            userObject.put("email", findUser.getEmail());
+            userObject.put("name", findUser.getName());
+            userObject.put("password", findUser.getPassword());
 
-            Long profileImage = user.getProfileImage();
+            Long profileImage = findUser.getProfileImage();
 
             if(profileImage != null)
                 userObject.put("profileImage", "/user/image/" + profileImage);
@@ -138,7 +138,7 @@ public class UserServiceImpl implements UserService {
             object.put("user", userObject);
             return new LoginResponse(200, "Success Login", tok, object);
         } catch (UserException e) {
-            return new LoginResponse(e.getStatus(), e.getMessage());
+            return new LoginResponse(e.getCode(), e.getMessage());
         } catch (Exception e) {
             log.error("login Error", e);
             return new LoginResponse(500, e.getMessage());
@@ -149,7 +149,7 @@ public class UserServiceImpl implements UserService {
     public Resource getImage(long imageId) {
         try {
             return new ByteArrayResource(imageFileRepository.findById(imageId).map(UserImageFile::getUserProfileImage).orElseThrow(
-                    () -> new UserException(403, "Undefined ImageId")
+                    () -> new UserException(400, "Undefined ImageId")
             ));
         } catch (UserException e) {
             return null;

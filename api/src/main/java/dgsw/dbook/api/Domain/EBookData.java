@@ -22,4 +22,6 @@ public class EBookData implements Serializable {
 
     private String publisher;
 
+    private String published;
+
 }
