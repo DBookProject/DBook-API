@@ -6,12 +6,12 @@ public class ListResponse extends Response {
 
     List<Object> objectList;
 
-    public ListResponse(int status, String message) {
-        super(status, message);
+    public ListResponse(int code, String message) {
+        super(code, message);
     }
 
-    public ListResponse(int status, String message, List<Object> objectList) {
-        super(status, message);
+    public ListResponse(int code, String message, List<Object> objectList) {
+        super(code, message);
 
         this.objectList = objectList;
     }

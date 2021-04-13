@@ -7,16 +7,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Response {
 
-    int status;
+    int code;
     String message;
 
-    public Response(int status, String message) {
-        this.status = status;
+    public Response(int code, String message) {
+        this.code = code;
         this.message = message;
     }
 
-    public int getStatus() {
-        return status;
+    public int getCode() {
+        return code;
     }
 
     public void setMessage(String message) {

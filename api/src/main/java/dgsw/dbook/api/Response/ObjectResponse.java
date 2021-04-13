@@ -6,12 +6,12 @@ public class ObjectResponse extends Response {
 
     Map<String, Object> object;
 
-    public ObjectResponse(int status, String message) {
-        super(status, message);
+    public ObjectResponse(int code, String message) {
+        super(code, message);
     }
 
-    public ObjectResponse(int status, String message, Map<String, Object> object) {
-        super(status, message);
+    public ObjectResponse(int code, String message, Map<String, Object> object) {
+        super(code, message);
 
         this.object = object;
     }
